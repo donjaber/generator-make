@@ -1,0 +1,19 @@
+{
+  "name": "generator-make",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "case": "^1.5.4",
+    "gulp-rename": "^1.2.2",
+    "js-yaml": "^3.10.0",
+    "smart-string": "0.0.1",
+    "subsy": "^1.0.2",
+    "yeoman-generator": "^2.0.1"
+  }
+}

@@ -1,0 +1,4 @@
+project:
+  groupId: com.github
+  artifactId: my-app
+  version: 1.0.0-SNAPSHOT
