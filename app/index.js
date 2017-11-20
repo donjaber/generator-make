@@ -12,11 +12,10 @@ module.exports = class extends Generator {
 
     initializing() {
         this.options.configuration = utils.loadYaml(this.templatePath('../configs/config.yaml'));
+        utils.caseProperties(this.options.configuration.project, 'artifactId');
     }
 
-    promptingZZZ() {        
-        utils.demo();
-
+    prompting() {
         const prompts = [
             {
                 type: 'input',
@@ -47,6 +46,7 @@ module.exports = class extends Generator {
     }
 
     configuring() {}
+
     writing() {
         var THAT = this;
         this.registerTransformStream(rename(function(path) {
@@ -55,11 +55,29 @@ module.exports = class extends Generator {
             path.dirname = utils.substitute(path.dirname, THAT.options.configuration, '{{','}}');
             path.dirname = path.dirname.replace(/\./g, '/');
         }));
+        
+        /*
         this.fs.copyTpl(
             this.templatePath(),
             this.destinationPath(), 
             this.options.configuration
         );
+        */
+        
+        appendCopy(this, '{{project.groupId}}', 'test.txt', '//DONT', 'Testing Append');
     }
     end() {}
+};
+
+
+const appendCopy = function(generator,folder,file,marker,content) {
+    console.log(folder+'/'+file);
+    utils.appendCopy(
+        generator.templatePath(folder+'/'+file),
+        generator.destinationPath(
+            utils.substitute(folder, generator.options.configuration, '{{','}}')).replace(/\./g, '/') +
+            '/' + utils.substitute(file, generator.options.configuration, '{{','}}'),
+        marker,
+        content
+    )
 };
